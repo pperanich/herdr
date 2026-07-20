@@ -1059,6 +1059,11 @@
               "minimum": 0,
               "type": "integer"
             },
+            "path": {
+              "default": "",
+              "description": "Directory the workspace was created with. Stable for the workspace\nlifetime, unlike pane cwd which follows the foreground process.",
+              "type": "string"
+            },
             "tab_count": {
               "format": "uint",
               "minimum": 0,
@@ -9692,6 +9697,11 @@
               "format": "uint",
               "minimum": 0,
               "type": "integer"
+            },
+            "path": {
+              "default": "",
+              "description": "Directory the workspace was created with. Stable for the workspace\nlifetime, unlike pane cwd which follows the foreground process.",
+              "type": "string"
             },
             "tab_count": {
               "format": "uint",

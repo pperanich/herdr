@@ -474,6 +474,7 @@ impl App {
             workspace_id: self.public_workspace_id(index),
             number: index + 1,
             label: ws.display_name_from(&self.state.terminals, &self.terminal_runtimes),
+            path: ws.identity_cwd.display().to_string(),
             focused: self.state.active == Some(index),
             pane_count: ws.public_pane_numbers.len(),
             tab_count: ws.tabs.len(),

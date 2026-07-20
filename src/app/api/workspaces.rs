@@ -561,6 +561,29 @@ mod tests {
     }
 
     #[test]
+    fn api_workspace_list_reports_identity_cwd() {
+        let (_api_tx, api_rx) = tokio::sync::mpsc::unbounded_channel();
+        let mut app = App::new(
+            &Config::default(),
+            true,
+            None,
+            api_rx,
+            crate::api::EventHub::default(),
+        );
+        let mut ws = Workspace::test_new("one");
+        ws.identity_cwd = std::path::PathBuf::from("/repo/one");
+        app.state.workspaces = vec![ws];
+
+        let response = app.handle_workspace_list("req".into());
+
+        let success: SuccessResponse = serde_json::from_str(&response).unwrap();
+        let ResponseResult::WorkspaceList { workspaces } = success.result else {
+            panic!("expected workspace list");
+        };
+        assert_eq!(workspaces[0].path, "/repo/one");
+    }
+
+    #[test]
     fn api_workspace_move_noop_does_not_emit_event() {
         let event_hub = crate::api::EventHub::default();
         let (_api_tx, api_rx) = tokio::sync::mpsc::unbounded_channel();

@@ -46,6 +46,10 @@ pub struct WorkspaceInfo {
     pub workspace_id: String,
     pub number: usize,
     pub label: String,
+    /// Directory the workspace was created with. Stable for the workspace
+    /// lifetime, unlike pane cwd which follows the foreground process.
+    #[serde(default)]
+    pub path: String,
     pub focused: bool,
     pub pane_count: usize,
     pub tab_count: usize,
